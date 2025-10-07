@@ -1,0 +1,86 @@
+#include <iostream>
+using namespace std;
+
+class myArray {
+private:
+    int* arrayData;
+    int size;
+
+public:
+    myArray(int arraySize) {
+        size = arraySize;
+        arrayData = new int[size];
+    }
+
+    myArray(const myArray& other) {
+        size = other.size;
+        arrayData = new int[size];
+        for (int i = 0; i < size; i++) {
+            arrayData[i] = other.arrayData[i];
+        }
+    }
+
+    ~myArray() {
+        delete[] arrayData;
+    }
+
+    void addArray(int num) {
+        if (num < -100 || num > 100) {
+            cout << "ошибка" << endl;
+            return;
+        }
+
+        int* newArray = new int[size + 1];
+
+        for (int i = 0; i < size; i++) {
+            newArray[i] = arrayData[i];
+        }
+
+        newArray[size] = num;
+
+        delete[] arrayData;
+        arrayData = newArray;
+        size += 1;
+    }
+
+    void sum(const myArray& other) {
+        for (int i = 0; i < size; i++) {
+            int num;
+            if (i < other.size) {
+                num = other.arrayData[i];
+            }
+            else {
+                num = 0;
+            }
+            arrayData[i] = arrayData[i] + num;
+        }
+    }
+
+    void difference(const myArray& other) {
+        for (int i = 0; i < size; i++) {
+            int num;
+            if (i < other.size) {
+                num = other.arrayData[i];
+            }
+            else {
+                num = 0;
+            }
+            arrayData[i] = arrayData[i] - num;
+        }
+    }
+
+    void print() {
+        for (int i = 0; i < size; i++) {
+            cout << arrayData[i] << " ";
+        }
+        cout << endl;
+    }
+
+    void getValue(int ind) {
+        if (ind < 0 || ind >= size) {
+            cout << "ошибка" << endl;
+            return;
+        }
+        cout << arrayData[ind] << endl;
+    }
+};
